@@ -1,0 +1,13 @@
+{
+  "name": "quarantine-speedtest",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone internet speed test. No accounts, no tracking, no uploads - talks only to Cloudflare's public speed endpoints.",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

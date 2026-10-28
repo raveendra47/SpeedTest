@@ -1,0 +1,106 @@
+---
+layout: base.njk
+title: Speedtest — fast, private, no tracking
+---
+<main class="wrap">
+
+  <header class="hero">
+    <h1>Speedtest</h1>
+    <p class="lede">Measures your internet with code that runs entirely in this page. The only network traffic is random test data exchanged with Cloudflare's public speed endpoints — no accounts, no analytics, no third-party scripts. Cloudflare's servers see your IP address, as any server you connect to does.</p>
+  </header>
+
+  <section class="connbox" aria-label="Connection details">
+    <div class="cb-flow" id="st-flow" data-phase="idle">
+      <div class="node">
+        <span class="node-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </span>
+        <span class="node-txt"><b>Server</b><i id="st-i-colo">—</i></span>
+      </div>
+
+      <div class="wire" aria-hidden="true">
+        <span class="wire-line"></span>
+        <span class="pkt p1"></span><span class="pkt p2"></span><span class="pkt p3"></span><span class="pkt p4"></span>
+        <span class="pkt pr q1"></span><span class="pkt pr q2"></span>
+      </div>
+
+      <div class="node">
+        <span class="node-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </span>
+        <span class="node-txt"><b>Your device</b><i>this browser</i></span>
+      </div>
+    </div>
+
+    <dl class="cb-grid">
+      <div class="cb-item"><dt>Server</dt><dd id="st-i-server">speed.cloudflare.com</dd></div>
+      <div class="cb-item"><dt>Connection</dt><dd id="st-i-conn">—</dd></div>
+      <div class="cb-item"><dt>IP address</dt><dd id="st-i-ip">—</dd></div>
+      <div class="cb-item"><dt>Endpoint</dt><dd id="st-i-endpoint">—</dd></div>
+    </dl>
+  </section>
+
+  <section class="tiles">
+    <div class="tile acc-down"><span class="tlabel">Download</span><span class="tvalue mono" id="st-down">—</span><span class="tunit" id="st-down-unit">Mbps</span></div>
+    <div class="tile acc-up"><span class="tlabel">Upload</span><span class="tvalue mono" id="st-up">—</span><span class="tunit" id="st-up-unit">Mbps</span></div>
+    <div class="tile"><span class="tlabel">Latency</span><span class="tvalue mono" id="st-lat">—</span><span class="tunit">ms idle</span></div>
+    <div class="tile"><span class="tlabel">Loaded</span><span class="tvalue mono" id="st-load">—</span><span class="tunit">ms under load</span></div>
+    <div class="tile"><span class="tlabel">Jitter</span><span class="tvalue mono" id="st-jit">—</span><span class="tunit">ms</span></div>
+    <div class="tile"><span class="tlabel">Bufferbloat</span><span class="tvalue mono" id="st-grade">—</span><span class="tunit">grade</span></div>
+  </section>
+
+  <noscript><p class="info">This speed test needs JavaScript.</p></noscript>
+  <div class="sr-only" id="st-live" role="status" aria-live="polite"></div>
+  <div class="phase mono" id="st-phase">idle — press Start</div>
+  <div class="bar"><div class="bar-fill" id="st-bar"></div></div>
+
+  <div class="chartcard"><canvas id="st-canvas" role="img" aria-label="Speed over time chart"></canvas></div>
+
+  <section class="controls">
+    <button type="button" id="st-go" class="btn btn-primary">Start test</button>
+    <button type="button" id="st-stop" class="btn" disabled>Stop</button>
+    <label class="check"><input type="checkbox" id="st-do-up" checked> include upload</label>
+    <label class="field">parallel requests
+      <select id="st-streams">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="4" selected>4</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+      </select>
+    </label>
+    <label class="field">seconds / direction
+      <select id="st-duration">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+      </select>
+    </label>
+    <button type="button" id="st-units" class="btn btn-ghost">Mbps ⇄ MB/s</button>
+  </section>
+
+  <section class="history">
+    <div class="h-head">
+      <h2>History <span class="h-sub">stored only in this browser · click a row for details</span></h2>
+      <div class="h-actions">
+        <button type="button" id="st-copy" class="btn btn-ghost">Copy summary</button>
+        <button type="button" id="st-export" class="btn btn-ghost">Export .json</button>
+        <button type="button" id="st-clear" class="btn btn-ghost">Clear</button>
+      </div>
+    </div>
+    <div class="hscroll">
+      <table class="htable">
+        <thead><tr><th>When</th><th>Down</th><th>Up</th><th>Ping</th><th>Loaded</th><th>Grade</th></tr></thead>
+        <tbody id="st-history"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="mono" id="st-conn"></p>
+    <p>Test endpoints: <span class="mono">speed.cloudflare.com</span> — anycast picks the nearest datacenter automatically. No third-party scripts, no cookies, no analytics. Results live in your browser's local storage and nowhere else. Packet loss cannot be measured from a browser and is intentionally absent.</p>
+  </footer>
+
+  <script src="./js/app.js?v=3" defer></script>
+  <script src="./js/fx.js?v=2" defer></script>
+</main>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14100a">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://speed.cloudflare.com; img-src 'self' data:; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="description" content="Privacy-first internet speed test. No accounts, no analytics, no third-party scripts - measures your line against Cloudflare's public speed endpoints.">
+<title>{{ title or "Speedtest" }}</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+{{ content | safe }}
+</body>
+</html>
