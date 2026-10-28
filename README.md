@@ -1,4 +1,4 @@
-# Quarantine Speedtest
+# Speedtest
 
 A standalone, dependency-free internet speed test. No accounts, no tracking,
 no analytics, no cookies. The only network traffic is random test bytes
