@@ -19,21 +19,6 @@ cannot measure it honestly.
 
     npm run build    # outputs to dist/
 
-## Deploy to GitHub Pages (recommended: Actions)
-
-1. Push this repo to GitHub (branch `main`).
-2. Repo Settings -> Pages -> Source: **GitHub Actions**.
-3. The included workflow (`.github/workflows/deploy.yml`) builds and
-   deploys on every push. Site appears at
-   `https://<your-user>.github.io/<repo-name>/`.
-
-## Deploy manually (alternative)
-
-    npm run build
-    npx gh-pages -d dist
-
-Then Settings -> Pages -> Source: deploy from branch `gh-pages`, root.
-
 ## Privacy
 
 - CSP (meta tag) allows scripts/styles only from this site and network
